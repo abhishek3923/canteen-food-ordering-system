@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign up</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .check {
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            text-align: center;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            box-shadow: 9px -7px 22px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .canteen {
+            font-size: 40px;
+            ;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .food {
+            font-size: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #27AE60;
+        }
+
+        h2 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            ;
+        }
+
+        .abc {
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            width: 200px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="check">
+        <span class="canteen">Canteen </span>
+        <span class="food">Food</span>
+
+
+        <h2 style="text-align: center;color:gray">Sign in with E-mail or Mobile</h2>
+        <form>
+            <input class="abc" type="text" name=" " id="username" placeholder="Enter name">
+            <br><br>
+            <input class="abc" type="email" name=" " id="useremail" placeholder="Enter email">
+            <br><br>
+            <input class="abc" type="text" name=" " id="usermobile" placeholder="Enter Mobilenumber">
+            <br><br>
+            <input class="abc" type="password" name=" " id="password" placeholder="Enter Password">
+            <br><br>
+            <input class="abc" type="password" name=" " id="confirmpassword" placeholder="Re-enter password">
+
+        </form>
+        <br>
+        <button
+                style="background-color: #27AE60;text-align:center;height:30px;width:200px;border-radius: 5px;"
+             onclick="onSignupClicked()"><a href="menu.html">Sign up</a></button>
+                
+        <br><br>
+
+        <a href="index.html" id="indexLink" ></a>
+
+
+    </div>
+
+</body>
+
+<script>
+    function onSignupClicked() {
+        var name = document.getElementById('username').value;
+        var email = document.getElementById('useremail').value;
+        var mobileNumber = document.getElementById('usermobile').value;
+        var password = document.getElementById('password').value;
+        var confirmpassword = document.getElementById('confirmpassword').value;
+
+        if ((name != '' && email != '' && mobileNumber != '' && password != '' && confirmpassword != '') && password == confirmpassword) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 201) {
+                    let resp = JSON.parse(this.response);
+                    console.log(resp);
+                    document.getElementById('indexLink').click();
+                }
+            };
+        }
+
+        var payload = {
+            "name": name,
+            "mobile": mobileNumber,
+            "emailaddress": email,
+            "password": password
+        };
+        var toPost = JSON.stringify(payload);
+
+        xhttp.open("POST", "http://localhost:3000/xyz/byebye", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(toPost);
+    }
+</script>
+
+</html>

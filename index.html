@@ -1,0 +1,109 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign in</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .check {
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            text-align: center;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            box-shadow: 9px -7px 22px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .canteen {
+            font-size: 40px;
+            ;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .food {
+            font-size: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: lawngreen;
+        }
+
+        h2 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            ;
+        }
+
+        .abc {
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            width: 200px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="check">
+        <span class="canteen">Canteen </span>
+        <span class="food">Food</span>
+
+
+        <h2 style="text-align: center;color:gray">Sign in with E-mail or mobile</h2>
+        <form>
+            <input id="mobileNumber" class="abc" type="text" name="mobileNumber" placeholder="Enter mobilenumber">
+            <br><br>
+            <input id="userPassword" class="abc" type="password" name="userPassword" placeholder="Enter password">
+
+        </form>
+        <br>
+        <button style="background-color: lawngreen;text-align:center;height:30px;width:200px;border-radius: 5px;"
+            onclick="onSigninClicked()"><a href="menu.html">Sign in</a></button><br><br>
+        <a href="Forgot password.html">forgot password?</a><br>
+        <p>Didn't have an account?</p>
+        <a id="signUpLink" href="sign up.html">Sign up</a>
+        <a id="homeLink" href="home.html"></a>
+
+
+    </div>
+
+</body>
+
+<script>
+    function onSigninClicked() {
+        var mobileNumber = document.getElementById('mobileNumber').value;
+        var password = document.getElementById('userPassword').value;
+
+        if (mobileNumber != '' & password != '') {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let resp = JSON.parse(this.response);
+                    console.log(resp);
+                    if (resp == null) {
+                        document.getElementById('signUpLink').click();
+                    } else {
+                        if (resp["password"] == password) {
+                            document.getElementById('homeLink').click();
+                        } else {
+
+                        }
+                    }
+                }
+            };
+        }
+
+        xhttp.open("GET", "http://localhost:3000/xyz/hello/" + mobileNumber, true);
+        xhttp.send();
+    }
+</script>
+
+</html>
